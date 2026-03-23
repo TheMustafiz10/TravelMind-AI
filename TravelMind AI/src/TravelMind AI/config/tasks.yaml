@@ -1,0 +1,46 @@
+destination_research_task:
+  description: >
+    Research destination insights for {destination} during {travel_dates} using Serper web search.
+    Focus on top attractions, practical travel logistics, local transit options, typical opening times,
+    neighborhood-level recommendations, and weather/seasonality concerns.
+    Keep findings factual and source-driven.
+  expected_output: >
+    Markdown section titled "Destination Overview" with concise bullets for:
+    highlights, logistics, best areas, and planning notes.
+  agent: destination_researcher
+
+budget_planning_task:
+  description: >
+    Build a cost estimate for {destination} and {travel_dates} using only figures obtained from researched context.
+    Use calculator logic to compute subtotals and grand total across accommodation, food, transport, and activities.
+    Do not invent prices when data is unavailable; mark uncertain items explicitly.
+  expected_output: >
+    Markdown section titled "Budget Breakdown" with a table containing:
+    category, assumptions, estimated cost range, and subtotal.
+    Include total estimated cost and status against budget {budget}.
+  agent: budget_planner
+
+itinerary_design_task:
+  description: >
+    Design a realistic day-wise itinerary for {destination} on {travel_dates} using prior research and budget context.
+    Respect user preferences: {preferences}. Avoid time/location conflicts and overpacked schedules.
+    Include daily flow with morning, afternoon, evening blocks and transport transitions where relevant.
+  expected_output: >
+    Markdown section titled "Day-wise Itinerary" containing one subsection per day,
+    with feasible activity sequence, notes, and expected spend indicators.
+  agent: itinerary_designer
+
+validation_task:
+  description: >
+    Validate the complete travel plan context for consistency and feasibility.
+    Check if itinerary assumptions align with destination facts and if estimated spend aligns with budget {budget}.
+    Provide corrections or cautions when misalignment exists.
+    Produce final consolidated markdown output.
+  expected_output: >
+    Final markdown with exactly these top-level sections:
+    1) Travel Plan: {destination}
+    2) Destination Overview
+    3) Budget Breakdown
+    4) Day-wise Itinerary
+    5) Validation Summary (budget status, assumptions, risk factors)
+  agent: validation_agent
